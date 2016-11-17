@@ -23,4 +23,13 @@ describe Fluentdly::Logger do
     end
   end
 
+  describe 'logging levels' do
+    it 'logs with debug, error, warn, fatal, unknown' do
+      expect(adapter).to receive(:log_post).
+        with(:severity => :info, :foo => 'bar')
+
+      subject.info({:foo => 'bar'})
+    end
+  end
+
 end

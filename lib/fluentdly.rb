@@ -14,6 +14,10 @@ module Fluentdly
       adapter.log_post(message)
     end
 
+   def info content
+     log __method__, content
+   end
+
     private
 
     attr_reader :host, :port, :app_name
