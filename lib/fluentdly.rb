@@ -18,6 +18,26 @@ module Fluentdly
      log __method__, content
    end
 
+   def warn content
+     log __method__, content
+   end
+
+   def debug content
+     log __method__, content
+   end
+
+   def error content
+     log __method__, content
+   end
+
+   def fatal content
+     log __method__, content
+   end
+
+   def unknown content
+     log __method__, content
+   end
+
     private
 
     attr_reader :host, :port, :app_name
