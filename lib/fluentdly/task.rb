@@ -1,18 +1,18 @@
 module Fluentdly
   class Task
 
-    def self.log severity, parameters, logger, &block
-      task = self.new severity, parameters, logger, block
+    def self.log severity, parameters, &block
+      task = self.new severity, parameters, block
       task.call
     end
 
     attr_reader :severity, :parameters, :logger, :block
 
-    def initialize severity, parameters, logger, block
+    def initialize severity, parameters, block, config = Fluentdly.configuration
       @severity   = severity
       @parameters = parameters
-      @logger     = logger
-      @block     = block
+      @logger     = config.task_logger
+      @block      = block
     end
 
     def call
