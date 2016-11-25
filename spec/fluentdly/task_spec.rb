@@ -6,8 +6,9 @@ describe Fluentdly::Task do
   let(:parameters) { {:foo => 'bar'} }
   let(:block) { -> { ['ack', :fake_result] } }
   let(:logger) { double 'logger' }
+  let(:config) { double 'config', :task_logger => logger}
 
-  subject  { described_class.new(severity, parameters, logger, block) }
+  subject  { described_class.new(severity, parameters, block, config) }
 
   describe '#call' do
     it 'sends data to logger' do
