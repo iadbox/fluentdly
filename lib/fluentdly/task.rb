@@ -16,8 +16,12 @@ module Fluentdly
     end
 
     def call
+      began_at       = Time.now
       status, result = block.call
-      content = parameters.merge(:status => status)
+      finish_at      = Time.now
+
+      time_diff = finish_at - began_at
+      content = parameters.merge(:status => status, :time => time_diff)
 
       logger.log(severity, content)
       result

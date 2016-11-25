@@ -10,10 +10,14 @@ describe Fluentdly::Task do
 
   subject  { described_class.new(severity, parameters, block, config) }
 
+  before do
+    allow(Time).to receive(:now).and_return 1
+  end
+
   describe '#call' do
     it 'sends data to logger' do
       expect(logger).to receive(:log).
-        with(:info, :foo => 'bar', :status => 'ack')
+        with(:info, :foo => 'bar', :status => 'ack', :time => 0)
 
       expect(subject.call).to eq :fake_result
     end
