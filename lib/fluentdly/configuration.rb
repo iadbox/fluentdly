@@ -9,10 +9,9 @@ module Fluentdly
 
     def request_parameters custom_parameters = {}
       @request_parameters = {
-        :request_method => 'REQUEST_METHOD',
-        :query_string   => 'QUERY_STRING',
-        :request_uri    => 'REQUEST_URI',
-        :user_agent     => 'HTTP_USER_AGENT'
+        :method       => 'REQUEST_METHOD',
+        :query_string => 'QUERY_STRING',
+        :path         => 'PATH_INFO'
       }
 
       @request_parameters.merge(custom_parameters)
