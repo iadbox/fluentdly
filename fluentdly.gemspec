@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "fluentdly"
   spec.version       = Fluentdly::VERSION
   spec.authors       = ["Diego Lendoiro"]
-  spec.email         = ["diego.lendoiro@openhost.es"]
+  spec.email         = ["diego@iadbox.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = %q{Sends logs to fluentd agent}
+  spec.description   = %q{Allows to customize messages for sending logs to fluentd}
   spec.homepage      = "TODO: Put your gem's website or public repo URL here."
   spec.license       = "MIT"
 
@@ -27,7 +27,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency "fluent-logger"
+
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "pry-coolline"
+  spec.add_development_dependency "rack"
 end
