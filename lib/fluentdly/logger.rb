@@ -9,7 +9,7 @@ module Fluentdly
 
     def log severity, content
       message = content.merge(:severity => severity)
-      adapter.log_post(message)
+      adapter.post(message)
     end
 
    def info content
