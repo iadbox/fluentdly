@@ -24,9 +24,15 @@ Or install it yourself as:
 Setup `fluent-logger` parameters. See [link](https://github.com/fluent/fluent-logger-ruby "fluent-logger doc")
 
 ```ruby
+$logger = Fluentdly::Logger.new({:host => 'myhost', :port => 24224, :app_name => 'my_app'})
+
+```
+Configure fluentdly task logger:
+
+```ruby
 
 Fluentdly.configure do |config|
-  config.task_logger = Logger.new(:host => 'myhost', :port => 24224, :app_name => 'my_app')
+  config.task_logger = $logger
 end
 
 ```
