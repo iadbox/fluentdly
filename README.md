@@ -58,7 +58,19 @@ require 'fluentdly'
 
 Fluentdly::Task.log(:info, {:log_param => 'log_information' ... }) do
   your_business_logic_here
+
+  [status, result]
 end
+
+```
+
+###Setup middleware
+
+For instance in config.ru for rack applications:
+
+```ruby
+
+use Fluentdly::Rack::Middleware
 
 ```
 
