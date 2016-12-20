@@ -11,8 +11,7 @@ module Fluentdly
 
       def call env
         Fluentdly::Task.log(:info, request_parameters(env)) do
-          result = app.call(env)
-          status = result.first
+          status, * = result = app.call(env)
 
           [status, result]
         end
