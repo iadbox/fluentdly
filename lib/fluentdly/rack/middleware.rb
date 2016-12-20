@@ -10,7 +10,7 @@ module Fluentdly
       end
 
       def call env
-        Fluentdly::Task.log(:info, request_parameters(env)) do
+        Fluentdly::Task.log(Severity.info, request_parameters(env)) do
           status, * = result = app.call(env)
 
           [status, result]
