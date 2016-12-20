@@ -26,7 +26,7 @@ describe Fluentdly::Rack::Middleware do
 
     it 'logs users tasks properly' do
       expect(Fluentdly::Task).to receive(:log) do |severity, params, &block|
-        expect(severity).to eq :info
+        expect(severity).to eq Fluentdly::Severity.info
         expect(params).to eq expected_params
 
         status, result = block.call

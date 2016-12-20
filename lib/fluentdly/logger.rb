@@ -13,30 +13,30 @@ module Fluentdly
     end
 
    def info content
-     log __method__, content
+     log Severity.info, content
    end
 
    def warn content
-     log __method__, content
+     log Severity.warn, content
    end
 
    def debug content
-     log __method__, content
+     log Severity.debug, content
    end
 
    def error content
-     log __method__, content
+     log Severity.error, content
    end
 
    def fatal content
-     log __method__, content
+     log Severity.fatal, content
    end
 
    def unknown content
-     log __method__, content
+     log Severity.unknown, content
    end
 
-    private
+  private
 
     attr_reader :host, :port, :app_name
 
