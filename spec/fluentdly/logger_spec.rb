@@ -34,4 +34,10 @@ describe Fluentdly::Logger do
     end
   end
 
+  describe 'level ? methods' do
+    it 'returns true' do
+      expect(subject.warn?).to eq true
+    end
+  end
+
 end
