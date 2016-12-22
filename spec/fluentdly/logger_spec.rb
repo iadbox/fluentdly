@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'fluent-logger'
 
 describe Fluentdly::Logger do
 

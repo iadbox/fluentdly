@@ -1,3 +1,5 @@
+require 'fluent-logger'
+
 module Fluentdly
   class Logger
 
