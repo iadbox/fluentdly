@@ -49,9 +49,9 @@ module Fluentdly
 
     def format content, severity
       if content.is_a?(Hash)
-        content.merge(:severity => severity)
+        content.merge(:severity => severity, :service => app_name)
       else
-        {:message => content, :severity => severity}
+        {:message => content, :severity => severity, :service => app_name}
       end
     end
 
