@@ -2,6 +2,7 @@ require "fluentdly/version"
 require "fluentdly/severity"
 require "fluentdly/logger"
 require "fluentdly/task"
+require "fluentdly/timer"
 require "fluentdly/configuration"
 require "fluentdly/rack/middleware"
 
