@@ -7,7 +7,7 @@ module Fluentdly
 
       def initialize app, config = Fluentdly.configuration
         @app        = app
-        @logger     = config.logger
+        @logger     = config.task_logger
         @parameters = config.request_parameters
       end
 

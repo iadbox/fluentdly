@@ -17,7 +17,7 @@ describe Fluentdly::Rack::Middleware do
 
   let :config do
     double 'config', :request_parameters => request_parameters,
-                     :logger             => logger
+                     :task_logger        => logger
   end
 
   let(:stack) { Fluentdly::Rack::Middleware.new(app, config) }
