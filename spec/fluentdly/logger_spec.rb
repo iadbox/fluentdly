@@ -14,28 +14,31 @@ describe Fluentdly::Logger do
   end
 
   let(:info) { Fluentdly::Severity.info }
+  let(:warn) { Fluentdly::Severity.warn }
 
   describe '#log' do
     it 'logs properly' do
       expect(adapter).to receive(:post).
-        with(info, :severity => info, :foo => 'bar', :service => 'test_app')
+        with(info, :severity => info, :foo => 'bar', :service => 'test_app').
+        twice
 
       subject.log(info, :foo => 'bar', :service => 'test_app')
+      subject.add(info, :foo => 'bar', :service => 'test_app')
     end
   end
 
   describe 'logging levels' do
     it 'logs with debug, error, warn, fatal, unknown' do
+      subject.level = Fluentdly::Severity.warn
+
       expect(adapter).to receive(:post).
-        with(info, :severity => info, :foo => 'bar', :service => 'test_app')
+        with(warn, :severity => warn, :foo => 'bar', :service => 'test_app')
+
+      subject.warn({:foo => 'bar', :service => 'test_app'})
+      expect(subject.warn?).to eq true
 
       subject.info({:foo => 'bar', :service => 'test_app'})
-    end
-  end
-
-  describe 'level ? methods' do
-    it 'returns true' do
-      expect(subject.warn?).to eq true
+      expect(subject.info?).to eq false
     end
   end
 
