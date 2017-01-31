@@ -24,7 +24,7 @@ module Fluentdly
           Responded in #{time}ms
             status: #{status}
             headers: #{headers}
-            body: #{body}
+            body: #{body.inspect}
           )
         end
 
