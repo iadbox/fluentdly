@@ -51,7 +51,7 @@ describe Fluentdly::Rack::Middleware do
       let(:debug) { false }
 
       let :message_regex do
-        /Completed GET \/foo.html\?bar=baz with 200 in [\d\.]+ms/
+        /Completed GET \/foo.html (.+bar.+baz.+) with 200 in [\d\.]+ms/
       end
 
       it 'logs some information' do

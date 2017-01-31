@@ -18,29 +18,25 @@ module Fluentdly
         end
 
         def call
-          "Completed #{method} #{path_and_params} with #{status} in #{time}ms"
+          "Completed #{method} #{path} (#{params}) with #{status} in #{time}ms"
         end
 
       private
 
-        def path_and_params
-          if query_string.empty?
-            path
-          else
-            "#{path}?#{query_string}"
-          end
-        end
-
         def method
-          env['REQUEST_METHOD']
-        end
-
-        def query_string
-          env['QUERY_STRING']
+          data.request_method
         end
 
         def path
-          env['PATH_INFO']
+          data.path_info
+        end
+
+        def params
+          data.params
+        end
+
+        def data
+          @data ||= ::Rack::Request.new(env)
         end
 
         attr_reader :env, :time, :status
