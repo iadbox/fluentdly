@@ -9,34 +9,35 @@ module Fluentdly
       @app_name = config.fetch(:app_name, 'myapp')
     end
 
-    def log severity, content
-      payload = format(content, severity)
+    def log severity, content, &block
+      message = content || block.call
+      payload = format(message, severity)
 
       adapter.post(severity, payload)
     end
 
-    def info content
-      log Severity.info, content
+    def info (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def warn content
-      log Severity.warn, content
+    def warn (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def debug content
-      log Severity.debug, content
+    def debug (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def error content
-      log Severity.error, content
+    def error (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def fatal content
-      log Severity.fatal, content
+    def fatal (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def unknown content
-      log Severity.unknown, content
+    def unknown (content = nil, &block)
+      log Severity.info, content, &block
     end
 
     [:debug?, :info?, :warn?, :error?, :fatal?].each do |level|
