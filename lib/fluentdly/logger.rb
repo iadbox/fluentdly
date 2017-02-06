@@ -3,66 +3,45 @@ require 'fluent-logger'
 module Fluentdly
   class Logger
 
-    attr_accessor :level, :datetime_format
-
     def initialize config
       @host     = config.fetch(:host,     'localhost')
       @port     = config.fetch(:port,     24224)
       @app_name = config.fetch(:app_name, 'myapp')
-      @level    = config.fetch(:level,    Severity.info)
     end
 
-    def log severity, content
-      if level <= severity
-        payload = format(content, severity)
+    def log severity, content, &block
+      message = content || block.call
+      payload = format(message, severity)
 
-        adapter.post(severity, payload)
-      end
-    end
-    alias_method :add, :log
-
-    def info?
-      level <= Severity.info
-    end
-    def info content
-      log Severity.info, content
-    end
-    alias_method :<<, :info
-
-    def warn?
-      level <= Severity.warn
-    end
-    def warn content
-      log Severity.warn, content
+      adapter.post(severity, payload)
     end
 
-    def debug?
-      level <= Severity.debug
-    end
-    def debug content
-      log Severity.debug, content
+    def info (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def error?
-      level <= Severity.error
-    end
-    def error content
-      log Severity.error, content
+    def warn (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def fatal?
-      level <= Severity.fatal
-    end
-    def fatal content
-      log Severity.fatal, content
+    def debug (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def unknown content
-      log Severity.unknown, content
+    def error (content = nil, &block)
+      log Severity.info, content, &block
     end
 
-    def close
-      adapter.close
+    def fatal (content = nil, &block)
+      log Severity.info, content, &block
+    end
+
+    def unknown (content = nil, &block)
+      log Severity.info, content, &block
+    end
+
+    [:debug?, :info?, :warn?, :error?, :fatal?].each do |level|
+      define_method(level) { true }
     end
 
   private
