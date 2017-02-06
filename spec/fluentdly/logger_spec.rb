@@ -14,31 +14,51 @@ describe Fluentdly::Logger do
   end
 
   let(:info) { Fluentdly::Severity.info }
-  let(:warn) { Fluentdly::Severity.warn }
 
-  describe '#log' do
-    it 'logs properly' do
-      expect(adapter).to receive(:post).
-        with(info, :severity => info, :foo => 'bar', :service => 'test_app').
-        twice
+  context "logs with content" do
+    describe '#log' do
+      it 'logs properly' do
+        expect(adapter).to receive(:post).
+          with(info, :severity => info, :foo => 'bar', :service => 'test_app')
 
-      subject.log(info, :foo => 'bar', :service => 'test_app')
-      subject.add(info, :foo => 'bar', :service => 'test_app')
+        subject.log(info, :foo => 'bar', :service => 'test_app')
+      end
+    end
+
+    describe 'logging levels' do
+      it 'logs with debug, error, warn, fatal, unknown' do
+        expect(adapter).to receive(:post).
+          with(info, :severity => info, :foo => 'bar', :service => 'test_app')
+
+        subject.info({:foo => 'bar', :service => 'test_app'})
+      end
     end
   end
 
-  describe 'logging levels' do
-    it 'logs with debug, error, warn, fatal, unknown' do
-      subject.level = Fluentdly::Severity.warn
+  context "logs with block" do
+    describe '#log' do
+      it 'logs properly with block' do
+        expect(adapter).to receive(:post).
+          with(info, :severity => info, :message => 'foo', :service => 'test_app')
 
-      expect(adapter).to receive(:post).
-        with(warn, :severity => warn, :foo => 'bar', :service => 'test_app')
+        subject.info { "foo" }
+      end
+    end
 
-      subject.warn({:foo => 'bar', :service => 'test_app'})
+    describe 'logging levels' do
+      it 'logs with debug, error, warn, fatal, unknown' do
+        expect(adapter).to receive(:post).
+          with(info, :severity => info, :message => 'foo' , :service => 'test_app')
+
+        subject.info { "foo" }
+      end
+    end
+
+  end
+
+  describe 'level ? methods' do
+    it 'returns true' do
       expect(subject.warn?).to eq true
-
-      subject.info({:foo => 'bar', :service => 'test_app'})
-      expect(subject.info?).to eq false
     end
   end
 
