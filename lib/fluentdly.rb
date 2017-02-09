@@ -4,7 +4,11 @@ require "fluentdly/logger"
 require "fluentdly/task"
 require "fluentdly/timer"
 require "fluentdly/configuration"
-require "fluentdly/rack/middleware"
+begin
+  require "fluentdly/rack/middleware"
+rescue LoadError
+  #rack gem is not available
+end
 
 module Fluentdly
 
