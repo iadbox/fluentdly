@@ -4,10 +4,8 @@ require "fluentdly/logger"
 require "fluentdly/task"
 require "fluentdly/timer"
 require "fluentdly/configuration"
-begin
+if Gem::Specification::find_all_by_name('rack').any?
   require "fluentdly/rack/middleware"
-rescue LoadError
-  #rack gem is not available
 end
 
 module Fluentdly
