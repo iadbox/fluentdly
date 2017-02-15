@@ -26,7 +26,7 @@ module Fluentdly
       level <= Severity.debug
     end
     def debug (content = nil, &block)
-      log Severity.info, content, &block
+      log Severity.debug, content, &block
     end
 
     def info?
@@ -41,25 +41,25 @@ module Fluentdly
       level <= Severity.warn
     end
     def warn (content = nil, &block)
-      log Severity.info, content, &block
+      log Severity.warn, content, &block
     end
 
     def error?
       level <= Severity.error
     end
     def error (content = nil, &block)
-      log Severity.info, content, &block
+      log Severity.error, content, &block
     end
 
     def fatal?
       level <= Severity.fatal
     end
     def fatal (content = nil, &block)
-      log Severity.info, content, &block
+      log Severity.fatal, content, &block
     end
 
     def unknown (content = nil, &block)
-      log Severity.info, content, &block
+      log Severity.unknown, content, &block
     end
 
     def close
