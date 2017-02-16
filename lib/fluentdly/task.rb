@@ -21,11 +21,18 @@ module Fluentdly
       finish_at      = Time.now
 
       time_diff = finish_at - began_at
-      content = parameters.merge(:status => status, :time => time_diff)
+      content = parameters.merge(:status => status, :time => time_diff, :message => format_message(status,time_diff))
 
       logger.log(severity, content)
       result
     end
 
+    private
+
+      def format_message status, time
+        formatted_parameters = parameters.map{ |k,v| "#{k}: #{v}"}.join(", ")
+
+        "Task with params #{formatted_parameters}, finished with #{status} in #{time}"
+      end
   end
 end
