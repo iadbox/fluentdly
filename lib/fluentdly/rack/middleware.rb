@@ -26,7 +26,7 @@ module Fluentdly
         message = format(env, time, result)
         status  = get_status(result)
 
-        custom(env).merge :status => status, :message => message
+        custom(env).merge :status => status, :message => message, :time => time
       end
 
       def format env, time, result
